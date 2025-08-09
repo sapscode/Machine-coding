@@ -13,9 +13,13 @@ export default function App() {
 	const end = start + limit;
 
 	const fetchProducts = async () => {
-		const data = await fetch(`${url}?limit=500`);
-		const res = await data.json();
-		setProducts(res.products);
+		try {
+			const data = await fetch(`${url}?limit=500`);
+			const res = await data.json();
+			setProducts(res.products);
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	useEffect(() => {
@@ -53,8 +57,13 @@ export default function App() {
 
 	const totalPages = Math.ceil((products.length - 1) / limit);
 
+	if (!products || !products.length) {
+		return <h1>Something went wrong...</h1>;
+	}
+
 	return (
 		<div className="App">
+			<h3>PAGINATION</h3>
 			<Products products={products.slice(start, end)} />
 			<PaginationBar
 				totalPages={totalPages}
