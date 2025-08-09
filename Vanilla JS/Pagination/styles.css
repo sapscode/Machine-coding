@@ -1,0 +1,49 @@
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	height: 100%;
+	font-family: sans-serif;
+	display: flex;
+	flex-direction: column;
+}
+
+.container {
+	padding: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	flex: 1;
+}
+
+.product-container {
+	height: 350px;
+	width: 300px;
+	border: 1px solid grey;
+}
+
+.buttons-container {
+	display: flex;
+	gap: 10px;
+	margin-top: auto;
+	padding: 10px;
+	justify-content: center;
+}
+
+.btn {
+	height: 50px;
+	width: 50px;
+	border-radius: 100%;
+	border: none;
+	cursor: pointer;
+}
+
+.btn.selected {
+	background-color: aqua;
+}
+
+.btn:hover {
+	background-color: beige;
+}

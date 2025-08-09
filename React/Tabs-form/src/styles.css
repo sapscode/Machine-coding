@@ -1,0 +1,72 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.tabs-container {
+  display: flex;
+}
+
+.tab {
+  padding: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.tab:hover {
+  background-color: grey;
+}
+
+.tab.selected {
+  background-color: antiquewhite;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid black;
+  min-height: 50vh;
+}
+
+.content main {
+  flex: 1;
+}
+
+.footer-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.next,
+.prev {
+  background-color: none;
+  border: none;
+}
+
+.form {
+  padding: 10px;
+}
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 15px;
+}
+
+.submit-btn-container {
+  margin-top: 5px;
+  position: absolute;
+  right: 5px;
+}
+
+.btn {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  display: block;
+  color: red;
+  font-size: small;
+}
