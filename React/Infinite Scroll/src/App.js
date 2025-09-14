@@ -3,6 +3,7 @@ import "./styles.css";
 
 const URL = "https://dummyjson.com/products";
 const limit = 30;
+
 export default function App() {
 	const [products, setProducts] = useState([]);
 	const [page, setPage] = useState(0);
@@ -87,6 +88,8 @@ export default function App() {
 						</div>
 					);
 				})}
+				{loading && <p className="loading">Loading more...</p>}
+				{!hasMore && <p className="end">No more products to show 🚀</p>}
 			</div>
 		</div>
 	);

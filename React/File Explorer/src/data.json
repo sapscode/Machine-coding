@@ -1,0 +1,45 @@
+[
+	{
+		"id": 1,
+		"name": "src",
+		"isFolder": true,
+		"children": [
+			{
+				"id": 2,
+				"name": "components",
+				"isFolder": true,
+				"children": [
+					{ "id": 3, "name": "Header.js", "isFolder": false },
+					{ "id": 4, "name": "Footer.js", "isFolder": false }
+				]
+			},
+			{
+				"id": 5,
+				"name": "utils",
+				"isFolder": true,
+				"children": [{ "id": 6, "name": "helpers.js", "isFolder": false }]
+			},
+			{ "id": 7, "name": "App.js", "isFolder": false },
+			{ "id": 8, "name": "index.js", "isFolder": false }
+		]
+	},
+	{
+		"id": 9,
+		"name": "public",
+		"isFolder": true,
+		"children": [
+			{ "id": 10, "name": "index.html", "isFolder": false },
+			{ "id": 11, "name": "favicon.ico", "isFolder": false }
+		]
+	},
+	{
+		"id": 12,
+		"name": "package.json",
+		"isFolder": false
+	},
+	{
+		"id": 13,
+		"name": "README.md",
+		"isFolder": false
+	}
+]

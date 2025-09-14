@@ -1,0 +1,63 @@
+.App {
+	font-family: sans-serif;
+}
+
+.container {
+	width: 500px;
+}
+
+.folderHeader {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.list-item {
+	margin-left: 20px;
+	margin-top: 5px;
+}
+
+.title {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 4px 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background: #f9f9f9;
+	transition: background 0.2s ease;
+}
+
+.expandBtn {
+	order: -1; /* move expand button to the very left inside .title */
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	font-size: 14px;
+	margin-right: 4px;
+}
+
+.btn-container {
+	display: flex;
+	gap: 6px;
+}
+
+.btn {
+	font-size: medium;
+	border-radius: 50%;
+	padding: 5px;
+	background: lightcyan;
+	transition: background 0.2s ease;
+}
+
+.btn:hover {
+	cursor: pointer;
+	background-color: lightblue;
+}
+
+.deleteBtn {
+	font-size: medium;
+}
+.deleteBtn:hover {
+	cursor: pointer;
+}
