@@ -15,6 +15,8 @@ const PaginationBar = ({ totalPages, currentPage, setCurrentPage }) => {
 			<button className="btn prev" onClick={prevPage}>
 				⬅️
 			</button>
+
+			{/* Page number buttons */}
 			{Array.from({ length: totalPages }, (_, i) => {
 				return (
 					<button
@@ -26,6 +28,7 @@ const PaginationBar = ({ totalPages, currentPage, setCurrentPage }) => {
 					</button>
 				);
 			})}
+
 			<button className="btn next" onClick={nextPage}>
 				➡️
 			</button>

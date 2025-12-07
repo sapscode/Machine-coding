@@ -8,6 +8,7 @@ const Carousel = ({ setCurrentIndex, images }) => {
 						src={thumbNailImage}
 						onClick={() => setCurrentIndex(id)}
 						alt={alt}
+						// Clicking a thumbnail updates the main image
 						className="carousel-thumbnail"
 					/>
 				);

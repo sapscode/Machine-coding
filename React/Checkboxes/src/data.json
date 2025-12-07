@@ -1,0 +1,148 @@
+[
+	{
+		"id": 1,
+		"name": "Fruits",
+		"children": [
+			{
+				"id": 2,
+				"name": "Citrus",
+				"children": [
+					{
+						"id": 3,
+						"name": "Orange"
+					},
+					{
+						"id": 4,
+						"name": "Lemon"
+					},
+					{
+						"id": 8,
+						"name": "Lime"
+					},
+					{
+						"id": 9,
+						"name": "Grapefruit"
+					}
+				]
+			},
+			{
+				"id": 5,
+				"name": "Berries",
+				"children": [
+					{
+						"id": 6,
+						"name": "Strawberry"
+					},
+					{
+						"id": 7,
+						"name": "Blueberry"
+					},
+					{
+						"id": 10,
+						"name": "Raspberry"
+					},
+					{
+						"id": 11,
+						"name": "Blackberry"
+					}
+				]
+			},
+			{
+				"id": 12,
+				"name": "Tropical",
+				"children": [
+					{
+						"id": 13,
+						"name": "Mango"
+					},
+					{
+						"id": 14,
+						"name": "Pineapple"
+					},
+					{
+						"id": 15,
+						"name": "Papaya"
+					}
+				]
+			},
+			{
+				"id": 16,
+				"name": "Stone Fruits",
+				"children": [
+					{
+						"id": 17,
+						"name": "Peach"
+					},
+					{
+						"id": 18,
+						"name": "Cherry"
+					},
+					{
+						"id": 19,
+						"name": "Plum"
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": 20,
+		"name": "Vegetables",
+		"children": [
+			{
+				"id": 21,
+				"name": "Leafy Greens",
+				"children": [
+					{
+						"id": 22,
+						"name": "Spinach"
+					},
+					{
+						"id": 23,
+						"name": "Lettuce"
+					},
+					{
+						"id": 24,
+						"name": "Kale"
+					}
+				]
+			},
+			{
+				"id": 25,
+				"name": "Root Vegetables",
+				"children": [
+					{
+						"id": 26,
+						"name": "Carrot"
+					},
+					{
+						"id": 27,
+						"name": "Beetroot"
+					},
+					{
+						"id": 28,
+						"name": "Potato"
+					}
+				]
+			},
+			{
+				"id": 29,
+				"name": "Cruciferous",
+				"children": [
+					{
+						"id": 30,
+						"name": "Broccoli"
+					},
+					{
+						"id": 31,
+						"name": "Cauliflower"
+					},
+					{
+						"id": 32,
+						"name": "Cabbage"
+					}
+				]
+			}
+		]
+	}
+]

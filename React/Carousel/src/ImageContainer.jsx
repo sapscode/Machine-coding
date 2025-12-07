@@ -11,6 +11,7 @@ const ImageContainer = ({ currentImage, setCurrentIndex, totalImages }) => {
 			<button className="previous" onClick={previousImage}>
 				◀️
 			</button>
+			{/* Display the currently selected main image */}
 			<img src={currentImage} className="img" />
 			<button className="next" onClick={nextImage}>
 				▶️
