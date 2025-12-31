@@ -1,0 +1,87 @@
+#root {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 2rem;
+	text-align: center;
+}
+
+.table-wrapper {
+	overflow-x: auto;
+	max-height: 400px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 8px;
+	overflow: hidden;
+	font-family: system-ui, sans-serif;
+}
+
+th,
+td {
+	padding: 12px 16px;
+	text-align: left;
+}
+
+thead {
+	background-color: #f5f5f5;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}
+
+th {
+	font-weight: 600;
+	border-bottom: 2px solid #ddd;
+}
+
+tbody tr {
+	border-bottom: 1px solid #eee;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #fafafa;
+}
+
+tbody tr:hover {
+	background-color: #f0f8ff;
+}
+
+td.price,
+td.rating {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+th:hover {
+	cursor: pointer;
+}
+.footer {
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	margin-top: 20px;
+	flex-wrap: wrap;
+}
+
+.btn {
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 14px;
+	transition: all 0.2s ease;
+}
+
+.btn:hover {
+	background-color: #f0f8ff;
+	border-color: #0066cc;
+}
+
+.btn.active {
+	background-color: #0066cc;
+	color: white;
+	border-color: #0066cc;
+}

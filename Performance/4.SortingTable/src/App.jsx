@@ -75,7 +75,7 @@ function App() {
 
 	// Handles sorting logic when a column header is clicked
 	const sortCol = (coloumn) => {
-    //setCurrentPage(1) // #OPTIONAL: moving to first page when sort is changed
+		setCurrentPage(1); //moving to first page when sort is changed
 
 		// If user clicked the SAME column:
 		// toggle the sort direction
