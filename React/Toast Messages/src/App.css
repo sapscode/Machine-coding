@@ -1,0 +1,61 @@
+html {
+	height: 100%;
+}
+body {
+	align-content: center;
+	text-align: center;
+	height: 100%;
+	margin: 0;
+}
+
+.btn {
+	cursor: pointer;
+}
+
+.buttons-container {
+}
+
+.toast-message {
+	height: 70px;
+	width: 200px;
+	margin-bottom: 1rem;
+	border-radius: 20px;
+	align-content: center;
+	font-size: larger;
+	position: relative;
+	animation: 1s slider;
+
+	.close-btn {
+		position: absolute;
+		right: 1rem;
+    cursor: pointer;
+	}
+}
+
+@keyframes slider {
+	0% {
+		transform: translate(100%);
+	}
+	100% {
+		transform: translate(0%);
+	}
+}
+
+.toast-container {
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: 5px;
+}
+.Success {
+	background-color: greenyellow;
+}
+.Warning {
+	background-color: yellow;
+}
+.Info {
+	background-color: beige;
+}
+.Error {
+	background-color: red;
+}
