@@ -14,6 +14,7 @@ function App() {
 	const [isLoading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
 
+	// Fetch images on component mount
 	useEffect(() => {
 		async function fetchImages() {
 			try {

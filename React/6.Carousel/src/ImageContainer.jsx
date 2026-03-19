@@ -1,7 +1,10 @@
 const ImageContainer = ({ currentImage, setCurrentIndex, totalImages }) => {
+	// Handle previous button: (prev - 1 + totalImages) ensures we wrap around to last image when at index 0
 	const previousImage = () => {
 		setCurrentIndex((prev) => (prev - 1 + totalImages) % totalImages);
 	};
+
+	// Handle next button: modulo wraps back to 0 after reaching last image
 	const nextImage = () => {
 		setCurrentIndex((prev) => (prev + 1) % totalImages);
 	};

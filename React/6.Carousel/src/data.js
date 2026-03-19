@@ -1,4 +1,5 @@
 // src/data.js
+// Static image data - currently unused but kept as local fallback reference
 
 import img1 from "./assets/img1.jpeg";
 import img2 from "./assets/img2.jpeg";
@@ -26,6 +27,7 @@ const images = [
 	img11
 ];
 
+// Format raw images into objects with id and image properties
 const imageData = images.map((img, index) => ({
 	id: index,
 	image: img

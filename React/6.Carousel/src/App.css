@@ -11,6 +11,7 @@ body {
 	background: #f0f0f0;
 }
 
+/* Main image display area with side navigation buttons */
 .image-container {
 	display: flex;
 	align-items: center;
@@ -28,6 +29,7 @@ body {
 	object-fit: cover;
 }
 
+/* Navigation buttons positioned on sides */
 .previous,
 .next {
 	position: absolute;
@@ -49,6 +51,7 @@ body {
 	background: rgba(0, 0, 0, 0.7);
 }
 
+/* Scrollable thumbnail carousel */
 .carousel {
 	display: flex;
 	gap: 10px;
@@ -66,6 +69,8 @@ body {
 .carousel-thumbnail:hover {
 	opacity: 0.7;
 }
+
+/* Active thumbnail indicator */
 .carousel-thumbnail.active {
 	border-color: dodgerblue;
 }
