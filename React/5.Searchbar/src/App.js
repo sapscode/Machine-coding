@@ -3,24 +3,29 @@ import "./styles.css";
 
 const url = "https://dummyjson.com/recipes/search?q=";
 export default function App() {
-	// Holds the current input text
+	// Holds the current input text - updates on every keystroke
 	const [searchTerm, setSearchTerm] = useState("");
 
-	// Stores fetched recipe names (search results)
+	// Stores fetched recipe names (search results) to display in dropdown
 	const [result, setResult] = useState([]);
 
 	// Controls visibility of the dropdown result list
+	// Hidden on blur to prevent visual clutter, shown on focus
 	const [showResult, setShowResult] = useState(false);
 
-	// Tracks which result item is currently highlighted (for keyboard navigation)
+	// Tracks which result item is currently highlighted via keyboard
+	// Set to -1 when no item is highlighted, 0+ for the highlighted index
 	const [highlight, setHighlight] = useState(-1);
 
-	// Cache object to avoid refetching the same search term (persists across renders)
+	// Cache object to avoid refetching the same search term
+	// useRef persists across renders (unlike state) - perfect for caching
+	// Pattern: Interview question: "How would you optimize API calls?"
 	const cache = useRef({});
 
 	// Fetches recipes based on the current searchTerm
+	// Interview pattern: Client-side caching to reduce API calls
 	const searchRecipes = async () => {
-		// If results are already cached for this term, use them directly
+		// Check cache first - if we've already fetched this term, return cached result
 		if (cache.current[searchTerm]) {
 			setResult(cache.current[searchTerm]);
 			return;
@@ -29,10 +34,11 @@ export default function App() {
 		try {
 			const data = await fetch(`${url}${searchTerm}`);
 			const res = await data.json();
-			// Extract only recipe names for displaying in suggestions
+
+			// Transform API response: extract only recipe names for dropdown suggestions
 			const names = res.recipes.map((recipe) => recipe.name);
 
-			// Store in cache to prevent redundant API calls
+			// Store in cache for future lookups (immutability with spread operator)
 			cache.current = { ...cache.current, [searchTerm]: names };
 			setResult(names);
 		} catch (err) {
@@ -40,47 +46,56 @@ export default function App() {
 		}
 	};
 
+	// Keyboard event handler - manages arrow navigation and Enter submission
+	// Interview pattern: Keyboard accessibility and enhanced UX
 	const handleKeyDown = (e) => {
 		if (!result || !result.length) return;
 		switch (e.key) {
 			case "ArrowDown":
 				e.preventDefault();
-				// Move highlight down (loop back to top)
+				// Cycle down through results with modulo (wraps to 0 after last item)
+				// (prev + 1) % result.length creates circular navigation
 				setHighlight((prev) => (prev + 1) % result.length);
 				break;
 
 			case "ArrowUp":
 				e.preventDefault();
-				// Move highlight up (loop back to bottom)
+				// Cycle up through results with safe negative handling
+				// (prev - 1 + result.length) ensures index never goes below 0
 				setHighlight((prev) => (prev - 1 + result.length) % result.length);
 				break;
 
 			case "Enter":
-				// When user presses Enter on a highlighted suggestion
+				// Only submit if a result is actually highlighted (highlight >= 0)
 				if (highlight >= 0 && highlight < result.length) {
 					e.preventDefault();
-					setSearchTerm(result[highlight]);
-					setHighlight(-1);
+					setSearchTerm(result[highlight]); // Fill input with selected suggestion
+					setHighlight(-1); // Reset highlight after selection
 					setShowResult(true);
 				}
 				break;
+
 			default:
 				break;
 		}
 	};
 
 	useEffect(() => {
-		// Debounce: wait 300ms before fetching (avoids API spam)
+		// Interview pattern: Debouncing to reduce API calls
+		// Wait 300ms after user stops typing before fetching
+		// Prevents excessive API calls (e.g., 5-10 calls per second while typing)
 		const timer = setTimeout(() => {
 			searchRecipes();
-			setHighlight(-1);
+			setHighlight(-1); // Reset highlight when new search starts
 		}, 300);
 
-		// Cleanup old timeout on every new keystroke
+		// Cleanup: Clear previous timeout if user types again before 300ms elapsed
+		// This ensures only the LAST keystroke triggers the API call
+		// Essential for performance optimization
 		return function () {
 			clearTimeout(timer);
 		};
-	}, [searchTerm]);
+	}, [searchTerm]); // Re-run whenever searchTerm changes
 
 	return (
 		<div className="App">
@@ -93,26 +108,32 @@ export default function App() {
 						key="search"
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
-						onBlur={() => setShowResult(false)} // hide list when input loses focus
-						onFocus={() => setShowResult(true)} // show list when input is focused
-						onKeyDown={handleKeyDown} // handle arrow keys and Enter
+						onBlur={() => setShowResult(false)} // Hide dropdown when focus leaves
+						onFocus={() => setShowResult(true)} // Show dropdown when focus entered
+						onKeyDown={handleKeyDown} // Handle arrow keys and Enter
 					/>
 
+					{/* Clear button - resets search and hides results */}
 					<button className="btn" onClick={() => setSearchTerm("")}>
 						x
 					</button>
 				</div>
 
-				{/* Dropdown suggestion list */}
+				{/* Dropdown suggestion list - only shows when:
+					1. searchTerm is not empty
+					2. results exist from API
+					3. showResult is true (focus or not blurred)
+				*/}
 				{searchTerm.length > 0 && result.length > 0 && showResult && (
 					<ul className="result-container">
 						{result.map((res, i) => {
 							return (
 								<li
 									key={i}
+									// Dynamic class: highlight class added when index matches highlight state
 									className={`result ${i === highlight ? "highlight" : ""}`}
 									onClick={() => {
-										setSearchTerm(res); // set input to selected value
+										setSearchTerm(res); // Fill input with clicked suggestion
 										setHighlight(-1);
 										setShowResult(true);
 									}}

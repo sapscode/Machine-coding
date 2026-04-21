@@ -1,0 +1,66 @@
+.container {
+	text-align: center;
+	margin: 0 auto;
+	min-height: 30%;
+	height: 100%;
+	width: 70%;
+	border: 1px solid black;
+	padding: 1rem;
+}
+
+.todo-input input {
+	margin-right: 1rem;
+	border-radius: 0.2rem;
+	width: 50%;
+	height: 20px;
+}
+
+.btn.input {
+	height: 20px;
+	transition: 0.3s ease;
+}
+
+.btn.remove {
+	transition: 0.1s ease-in;
+}
+
+.btn:hover {
+	cursor: pointer;
+	transform: scale(1.2);
+}
+
+.list-header {
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+
+.filter-dropdown {
+	position: absolute;
+	right: 10px;
+	top: 30%;
+}
+
+.todo-item {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1rem;
+}
+
+.left-section {
+	display: flex;
+	gap: 1rem;
+}
+
+.completed-checkbox {
+}
+
+.task-name {
+	font-family: sans-serif;
+	font-weight: bolder;
+	transition: 1s ease-in;
+}
+
+.task-name.completed {
+	text-decoration: line-through;
+}

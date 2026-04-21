@@ -1,9 +1,13 @@
 import "./styles.css";
 import data from "./data.json";
-import { useState } from "react";
+import {
+	useState,
+	useCallback,
+	useMemo,
+	createContext,
+	useContext
+} from "react";
 import List from "./Components/List";
-import { createContext } from "react";
-import { useContext } from "react";
 
 // Create context to share add/delete functions across deeply nested components
 const AddItemContext = createContext();
@@ -13,30 +17,9 @@ export const useAddItemContext = () => useContext(AddItemContext);
 export default function App() {
 	const [list, setList] = useState(data); // state holding the folder/file tree
 
-	// Function to add a file to a given folder (based on id)
-	const addFile = (id) => {
-		const obj = {
-			id: Date.now().toString(),
-			name: prompt("Enter file name"),
-			isFolder: false
-		};
-		addItem(id, obj); // reuse common addItem logic
-	};
-
-	// Function to add a folder inside another folder
-	const addFolder = (id) => {
-		const obj = {
-			id: Date.now().toString(),
-			name: prompt("Enter folder name"),
-			isFolder: true,
-			children: []
-		};
-		addItem(id, obj); // reuse common addItem logic
-	};
-
 	// Common function used by both addFile and addFolder
 	// It finds the target folder (by ID) and adds the new object inside its children
-	const addItem = (id, obj) => {
+	const addItem = useCallback((id, obj) => {
 		setList((prev) => {
 			// recursive helper function to update the tree structure
 			const updateTree = (list) => {
@@ -66,19 +49,44 @@ export default function App() {
 			// start the recursion from root-level list
 			return updateTree(prev);
 		});
-	};
+	}, []);
+
+	// Function to add a file to a given folder (based on id)
+	const addFile = useCallback(
+		(id) => {
+			const obj = {
+				id: Date.now().toString(),
+				name: prompt("Enter file name"),
+				isFolder: false
+			};
+			addItem(id, obj); // reuse common addItem logic
+		},
+		[addItem]
+	);
+
+	// Function to add a folder inside another folder
+	const addFolder = useCallback(
+		(id) => {
+			const obj = {
+				id: Date.now().toString(),
+				name: prompt("Enter folder name"),
+				isFolder: true,
+				children: []
+			};
+			addItem(id, obj); // reuse common addItem logic
+		},
+		[addItem]
+	);
 
 	// Delete an item (folder or file) by ID
-	const deleteItem = (id) => {
+	const deleteItem = useCallback((id) => {
 		setList((prev) => {
 			// Recursive function to traverse the entire tree
 			const updateTree = (list) => {
 				// Step 1: Filter out the node we want to delete
 				return (
 					list
-						.filter((item) => {
-							if (item.id !== id) return item;
-						})
+						.filter((item) => item.id !== id)
 						// Step 2: For each remaining item, if it's a folder, recursively update its children
 						.map((item) => {
 							if (item.isFolder && item.children?.length > 0) {
@@ -94,13 +102,18 @@ export default function App() {
 
 			return updateTree(prev);
 		});
-	};
+	}, []);
 
 	return (
 		<div className="App">
 			<div className="container">
 				{/* Provide the add/delete functions to child components using context */}
-				<AddItemContext.Provider value={{ addFile, addFolder, deleteItem }}>
+				<AddItemContext.Provider
+					value={useMemo(
+						() => ({ addFile, addFolder, deleteItem }),
+						[addFile, addFolder, deleteItem]
+					)}
+				>
 					<List list={list} />
 				</AddItemContext.Provider>
 			</div>

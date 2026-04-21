@@ -1,0 +1,50 @@
+.container {
+	margin: 0 auto;
+	width: 500px;
+}
+
+.file-upload-container {
+	height: 200px;
+	width: 100%;
+	border: 3px dashed grey;
+	text-align: center;
+	align-content: center;
+	margin-bottom: 1rem;
+}
+
+.file-upload-container.dragging {
+	border: 3px dashed greenyellow;
+	background-color: gainsboro;
+}
+
+.uploaded-files {
+	padding: 1rem;
+	border: 1px solid black;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1rem;
+	background-color: grey;
+}
+
+.content-section {
+}
+
+.hidden-input {
+	display: none;
+}
+
+.dropzone:hover {
+	cursor: pointer;
+}
+
+.remove-btn {
+	cursor: pointer;
+}
+
+.upload-btn {
+	border: 1px solid black;
+	padding: 0.5rem;
+}
+.upload-btn:hover {
+	cursor: pointer;
+}

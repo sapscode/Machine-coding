@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import List from "./List";
 import { useAddItemContext } from "../App";
 
-const ListItem = ({ listItem }) => {
+const ListItem = memo(({ listItem }) => {
 	// Access context functions from parent App
 	const { addFile, addFolder, deleteItem } = useAddItemContext();
 
@@ -60,5 +60,5 @@ const ListItem = ({ listItem }) => {
 			)}
 		</div>
 	);
-};
+});
 export default ListItem;

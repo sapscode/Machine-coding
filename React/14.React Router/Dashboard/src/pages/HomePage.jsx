@@ -1,3 +1,5 @@
+// HOME PAGE — renders inside RootLayout's <Outlet /> when URL is exactly "/"
+// This is the index route: { index: true, element: <HomePage /> } in App.jsx
 const HomePage = () => {
 	return (
 		<section>

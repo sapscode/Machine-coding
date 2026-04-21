@@ -1,11 +1,16 @@
 import React from "react";
 
+// Profile tab component - handles text input fields (name, age, email)
+// Receives shared form data and setter from parent TabForm
 const Profile = ({ data, setData, error }) => {
 	const { name, age, email } = data;
 
+	// Handle input changes - updates specific field in form data
+	// Interview pattern: Controlled components with single handler
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		// Update only the changed field using dynamic key
+		// Interview key concept: Computed property names [name]: value
+		// Allows single handler to update different fields dynamically
 		setData({ ...data, [name]: value });
 	};
 
@@ -14,6 +19,7 @@ const Profile = ({ data, setData, error }) => {
 			<div className="input-fields">
 				<div className="input">
 					<label htmlFor="name">Name: </label>
+					{/* Controlled text input - value comes from state */}
 					<input
 						type="text"
 						name="name"
@@ -22,6 +28,7 @@ const Profile = ({ data, setData, error }) => {
 						required
 						onChange={handleChange}
 					/>
+					{/* Conditional error display - only shown if error exists for this field */}
 					{error.name && <span className="errorMessage">{error.name}</span>}
 				</div>
 

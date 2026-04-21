@@ -5,30 +5,41 @@ import "./styles.css";
 
 const url = "https://dummyjson.com/products";
 export default function App() {
-	// Number of products to show per page
+	// Interview pattern: Fetch-once, paginate-in-memory strategy
+	// Load all data upfront (500 products), then slice different pages on demand
+	// Tradeoff: Higher initial load but instant pagination (no loading states)
+
+	// Number of products to show per page - controls slicing window
 	const [limit, setLimit] = useState(10);
 
-	// Stores all fetched products
+	// Stores all fetched products in memory - the full dataset
 	const [products, setProducts] = useState([]);
 
-	// Index of the currently active page
+	// Currently active page index (0-based)
+	// Interview concept: State-driven UI - changing this triggers slice computation
 	const [currentPage, setCurrentPage] = useState(0);
 
-	// Compute slice boundaries for the current page
+	// Interview key concept: Array slicing for pagination
+	// start = 0 * 10 = 0 (page 1: [0-9])
+	// start = 1 * 10 = 10 (page 2: [10-19])
+	// start = 2 * 10 = 20 (page 3: [20-29])
 	const start = currentPage * limit;
 	const end = start + limit;
 
-	// Fetch all products once (500 total) and keep them in memory
+	// Fetch all products at component mount (batches 500 items)
+	// Interview pattern: Data fetching - load once, paginate on demand
 	const fetchProducts = async () => {
 		try {
 			const data = await fetch(`${url}?limit=500`);
 			const res = await data.json();
-			setProducts(res.products);
+			setProducts(res.products); // Store full dataset in state
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
+	// Interview concept: useEffect dependency array optimization
+	// Empty array [] means run once on mount - perfect for data fetching
 	useEffect(() => {
 		fetchProducts();
 	}, []);
@@ -74,7 +85,9 @@ export default function App() {
     }, [currentPage]); 
     */
 
-	// Calculate total number of pages
+	// Interview pattern: Derived state from data
+	// Total pages = Math.ceil((total items - 1) / items per page)
+	// -1 accounts for 0-based indexing in pagination logic
 	const totalPages = Math.ceil((products.length - 1) / limit);
 
 	if (!products || !products.length) {
@@ -85,10 +98,12 @@ export default function App() {
 		<div className="App">
 			<h3>PAGINATION</h3>
 
-			{/* Slice product list to show current page items */}
+			{/* Interview concept: Array.slice() creates new array without mutation
+			    Passing only visible products to child avoids unnecessary renders */}
 			<Products products={products.slice(start, end)} />
 
-			{/* Pagination controls */}
+			{/* Props drilling: Passing page state & setter to pagination control */}
+			{/* Interview pattern: Lifting state up - parent owns pagination state */}
 			<PaginationBar
 				totalPages={totalPages}
 				currentPage={currentPage}

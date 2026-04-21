@@ -1,19 +1,23 @@
 .App {
-  font-family: sans-serif;
-  text-align: center;
+	font-family: sans-serif;
+	text-align: center;
 }
 
+/* Container for the progress bar */
 .progressBar {
-  margin: 10px 0px;
-  height: 20px;
-  width: 75%;
-  border: 1px solid black;
-  border-radius: 10px;
-  overflow: hidden;
+	margin: 10px 0px;
+	height: 20px;
+	width: 75%;
+	border: 1px solid black;
+	border-radius: 10px;
+	overflow: hidden; /* Clips inner progress bar to rounded corners */
 }
 
+/* Inner filled bar that animates when width changes */
 .progress {
-  height: 100%;
-  background-color: green;
-  transition: 0.5s ease-in;
+	height: 100%;
+	background-color: green;
+	/* CSS transition animates width changes smoothly over 0.5s */
+	/* Paired with React state update delay for smooth animation effect */
+	transition: 0.5s ease-in;
 }

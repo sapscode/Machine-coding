@@ -1,8 +1,10 @@
+/* flex-wrap grid: items flow left-to-right, wrap to next row */
 .App {
   font-family: sans-serif;
   text-align: center;
 }
 
+/* flex-wrap layout creates a responsive grid without CSS Grid */
 .content {
   display: flex;
   flex-wrap: wrap;
@@ -10,6 +12,7 @@
   justify-content: flex-start;
 }
 
+/* box-sizing: border-box ensures border is included in the 200px width */
 .product-container {
   width: 200px;
   border: 1px solid black;

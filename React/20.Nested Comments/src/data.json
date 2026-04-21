@@ -1,0 +1,13 @@
+[
+	{
+		"id": 1,
+		"message": "Hello how are you",
+		"replies": [
+			{
+				"id": 2,
+				"message": "Im good",
+				"replies": []
+			}
+		]
+	}
+]

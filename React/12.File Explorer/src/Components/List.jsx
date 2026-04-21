@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { memo } from "react";
 import ListItem from "./ListItem";
 
-const List = ({ list }) => {
+const List = memo(({ list }) => {
 	return (
 		<div>
 			{list.map((listItem) => {
@@ -10,5 +10,5 @@ const List = ({ list }) => {
 			})}
 		</div>
 	);
-};
+});
 export default List;

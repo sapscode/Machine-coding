@@ -2,6 +2,7 @@ body {
 	margin: 0;
 }
 
+/* Full-screen centered container for carousel */
 .container {
 	display: flex;
 	flex-direction: column;
@@ -11,29 +12,30 @@ body {
 	background: #f0f0f0;
 }
 
-/* Main image display area with side navigation buttons */
+/* Main image display area - relative positioning for absolute child buttons */
 .image-container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 600px;
 	height: 400px;
-	position: relative;
+	position: relative; /* Child absolute elements position relative to this */
 	background-color: #fff;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Hero image - respects container dimensions with object-fit */
 .img {
 	max-width: 100%;
 	max-height: 100%;
-	object-fit: cover;
+	object-fit: cover; /* Crops image to fill container without distortion */
 }
 
-/* Navigation buttons positioned on sides */
+/* Navigation buttons positioned absolutely on sides */
 .previous,
 .next {
 	position: absolute;
-	top: 50%;
+	top: 50%; /* Vertical centering with translate (see transform below) */
 	padding: 10px;
 	cursor: pointer;
 }
@@ -46,31 +48,34 @@ body {
 	right: 10px;
 }
 
+/* Hover effect for navigation buttons */
 .previous:hover,
 .next:hover {
 	background: rgba(0, 0, 0, 0.7);
 }
 
-/* Scrollable thumbnail carousel */
+/* Thumbnail carousel container - flexbox for horizontal layout */
 .carousel {
 	display: flex;
 	gap: 10px;
 }
 
+/* Individual thumbnail - small preview of each image */
 .carousel-thumbnail {
 	width: 70px;
 	height: 50px;
-	object-fit: cover;
+	object-fit: cover; /* Maintain aspect ratio when filling container */
 	margin: 5px;
 	cursor: pointer;
 	border: 2px solid grey;
 }
 
+/* Hover effect provides visual feedback on thumbnail */
 .carousel-thumbnail:hover {
 	opacity: 0.7;
 }
 
-/* Active thumbnail indicator */
+/* Active state for currently selected thumbnail (not currently used) */
 .carousel-thumbnail.active {
 	border-color: dodgerblue;
 }

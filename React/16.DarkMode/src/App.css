@@ -1,0 +1,96 @@
+/*
+ * APP.CSS — Dark Mode Theming
+ *
+ * HOW IT WORKS:
+ *   1. CSS variables are defined in :root (defaults/light)
+ *   2. [data-theme="dark"] overrides those same variables with dark values
+ *   3. ThemeContextProvider.jsx sets data-theme on <html> via:
+ *        document.documentElement.setAttribute("data-theme", theme)
+ *   4. All styles reference var(--xxx) → they auto-update when data-theme changes
+ *
+ * WHY data-theme ATTRIBUTE (not a class)?
+ *   - Attribute selectors [data-theme] are semantic and conventional for theming
+ *   - Works on the <html> element so every descendant inherits the variables
+ */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* Default / Light theme variables */
+:root {
+	--bg-color: #ffffff;
+	--primary-text-color: #333;
+	--nav-bg: #f0f0f0;
+	--nav-border: #ddd;
+	--btn-hover-bg: #ddd;
+}
+
+/* Dark overrides — same variable names, different values */
+[data-theme="dark"] {
+	--bg-color: #1a1a2e;
+	--primary-text-color: #e0e0e0;
+	--nav-bg: #16213e;
+	--nav-border: #0f3460;
+	--btn-hover-bg: #0f3460;
+}
+
+[data-theme="light"] {
+	--bg-color: #ffffff;
+	--primary-text-color: #333;
+	--nav-bg: #f0f0f0;
+	--nav-border: #ddd;
+	--btn-hover-bg: #ddd;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: var(--bg-color);
+	color: var(--primary-text-color);
+	transition:
+		background-color 0.3s ease,
+		color 0.3s ease;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem 2rem;
+	background-color: var(--nav-bg);
+	border-bottom: 1px solid var(--nav-border);
+	transition:
+		background-color 0.3s ease,
+		border-color 0.3s ease;
+}
+
+.nav-links {
+	display: flex;
+	gap: 1.5rem;
+}
+
+nav a {
+	text-decoration: none;
+	color: var(--primary-text-color);
+	font-weight: 500;
+	padding: 0.5rem 1rem;
+}
+
+main {
+	padding: 2rem;
+}
+
+.theme-swithcer {
+	cursor: pointer;
+	border: none;
+	background: none;
+	font-size: 1.2rem;
+	padding: 0.4rem 0.6rem;
+	border-radius: 6px;
+	transition: background-color 0.2s ease;
+}
+
+.theme-swithcer:hover {
+	background-color: var(--btn-hover-bg);
+}
