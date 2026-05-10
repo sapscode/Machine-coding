@@ -1,0 +1,143 @@
+* {
+	box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	display: flex;
+	margin: 40px;
+	gap: 60px;
+	height: calc(100vh - 80px);
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.stepper-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	min-width: 100px;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.stepper-button {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	border: 2px solid #ddd;
+	background-color: #f5f5f5;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.stepper-button:hover:not(:disabled) {
+	background-color: #e3f2fd;
+	border-color: #2196f3;
+	transform: scale(1.05);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stepper-button.active {
+	background-color: #2196f3;
+	color: white;
+	border-color: #1976d2;
+}
+
+.stepper-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.vertical-line {
+	border-left: 2px solid #ddd;
+	height: 80px;
+	margin: 0 auto;
+	width: 2px;
+}
+
+.content-container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	padding: 30px;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	background-color: #fafafa;
+	min-height: 0;
+}
+
+.content {
+	flex: 1;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #333;
+	padding: 20px;
+	background-color: white;
+	border-radius: 6px;
+	border-left: 4px solid #2196f3;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.button-container {
+	display: flex;
+	gap: 15px;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.prev,
+.next {
+	padding: 10px 24px;
+	border: none;
+	border-radius: 6px;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.prev {
+	background-color: #f5f5f5;
+	color: #333;
+	border: 1px solid #ddd;
+}
+
+.prev:hover:not(:disabled) {
+	background-color: #eeeeee;
+	border-color: #999;
+}
+
+.next {
+	background-color: #2196f3;
+	color: white;
+}
+
+.next:hover:not(:disabled) {
+	background-color: #1976d2;
+	box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+.prev:disabled,
+.next:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}

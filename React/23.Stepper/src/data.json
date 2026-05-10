@@ -1,0 +1,22 @@
+[
+	{
+		"id": 1,
+		"data": "Personal Information - Enter your name, email, and phone number. This information helps us identify you and keep you updated about your order. Please ensure all details are accurate and current. We promise to keep your information secure and confidential at all times."
+	},
+	{
+		"id": 2,
+		"data": "Address Details - Provide your residential address details including street name, city, state, and zip code. Double-check your address to avoid delivery issues. Make sure the address is complete and matches the location where you want the order delivered. Include any special delivery instructions if needed."
+	},
+	{
+		"id": 3,
+		"data": "Shipping Info - Choose your preferred shipping method from available options. Standard shipping typically takes 5-7 business days while express shipping arrives within 2-3 days. Consider the urgency of your order and select accordingly. Additional charges may apply for expedited shipping options."
+	},
+	{
+		"id": 4,
+		"data": "Payment Method - Select and enter your payment details securely. We accept all major credit cards, debit cards, and digital payment methods. Your payment information is encrypted and protected with industry-standard security protocols. No charges will be made until you confirm your order on the final page."
+	},
+	{
+		"id": 5,
+		"data": "Review & Confirm - Review all your information one last time before submitting. Verify that your personal details, address, shipping method, and payment information are correct. Once submitted, your order will be processed immediately and you will receive a confirmation email. You can track your order status anytime using your order ID."
+	}
+]
