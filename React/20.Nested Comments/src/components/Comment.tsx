@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import type { ICommnetProp } from "../types";
-import { useOpenReply } from "../App";
+import type { IUser, ICommnetProp } from "../types";
+import { useOpenReply, useGetAllUsers } from "../App";
 
 // Comment is a recursive component — it renders itself for each reply,
 // creating the nested thread structure.
 // Props come from the parent Comment (or App for root-level comments).
 const Comment = ({ comment, addComment, deleteComment }: ICommnetProp) => {
-	const { id, message, replies } = comment;
+	const { id, message, replies, userId } = comment;
+
+	const users: IUser[] | null = useGetAllUsers();
+	const currentUser = users?.find((user) => user.id === userId);
 
 	// --- Reply box open/close (via Context) ---
 	// Instead of local boolean state, we use a shared context that holds the id
@@ -15,11 +18,15 @@ const Comment = ({ comment, addComment, deleteComment }: ICommnetProp) => {
 	const { openReplyId, setOpenReplyId } = useOpenReply();
 	const openReply = openReplyId === id; // derived: true only for this comment
 
+	const [openDropdown, setOpendropdown] = useState<boolean>(false);
+	const [dropdownUsers, setDropdownUsers] = useState<IUser[] | null>(users);
+
 	// Controlled input state for the reply text
 	const [replyMessage, setReplyMessage] = useState<string>("");
 
 	// Ref to the reply input — used to auto-focus it when the reply box opens
 	const inputRef = useRef<HTMLInputElement>(null);
+	const dropdownRef = useRef<HTMLUListElement>(null);
 
 	// Toggle this comment's reply box.
 	// If it's already open (openReplyId === id), close it (set to null).
@@ -31,7 +38,21 @@ const Comment = ({ comment, addComment, deleteComment }: ICommnetProp) => {
 
 	// Sync input value as user types
 	const handleReplyMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setReplyMessage(e.target.value);
+		const val = e.target.value;
+		setReplyMessage(val);
+
+		if (val.trim().startsWith("@")) {
+			setOpendropdown(true);
+			const searchTerm = val.slice(1);
+
+			setDropdownUsers((prev) => {
+				return users?.filter((prevUser) =>
+					prevUser.name.toLowerCase().includes(searchTerm.toLowerCase())
+				);
+			});
+		} else {
+			setOpendropdown(false);
+		}
 	};
 
 	const handleDelete = () => {
@@ -62,10 +83,25 @@ const Comment = ({ comment, addComment, deleteComment }: ICommnetProp) => {
 		if (openReply === true) inputRef.current?.focus();
 	}, [openReply]);
 
+	const handleDropdownClick = (userName: string) => {
+		setReplyMessage(`@${userName}`);
+		setOpendropdown(false);
+	};
+
+	const handleRemovefocus = (e: React.MouseEvent<HTMLInputElement>) => {
+		setOpendropdown(false);
+	};
+
 	return (
 		<div className="comment">
 			<div className="comment-section">
-				<div className="message">{message}</div>
+				<div className="avatar">{currentUser?.avatar || "U"}</div>
+				<div style={{ flex: 1 }}>
+					<strong style={{ fontSize: "0.9rem", color: "#555" }}>
+						{currentUser?.name || "Anonymous"}
+					</strong>
+					<div className="message">{message}</div>
+				</div>
 				<div className="btn-group">
 					<button className="btn" onClick={handleReply}>
 						Reply
@@ -79,15 +115,33 @@ const Comment = ({ comment, addComment, deleteComment }: ICommnetProp) => {
 			{/* Reply input box — only rendered when this comment's reply is open */}
 			{openReply && (
 				<div className="reply">
-					<input
-						ref={inputRef}
-						className="input-ele"
-						type="text"
-						onChange={handleReplyMessage}
-						onKeyDown={handleKeyDown}
-						value={replyMessage}
-					/>
-					<button onClick={postReply}>Comment</button>
+					<div className="reply-comment">
+						<input
+							ref={inputRef}
+							className="input-ele"
+							type="text"
+							onBlur={handleRemovefocus}
+							onChange={handleReplyMessage}
+							onKeyDown={handleKeyDown}
+							value={replyMessage}
+						/>
+						<button onClick={postReply}>Comment</button>
+						<button onClick={handleReply}>Cancel</button>
+					</div>
+					{openDropdown && (
+						<ul className="dropdown" ref={dropdownRef.current}>
+							{dropdownUsers?.map((user) => {
+								return (
+									<li
+										onClick={() => handleDropdownClick(user.name)}
+										key={user.id}
+									>
+										{user.name}
+									</li>
+								);
+							})}
+						</ul>
+					)}
 				</div>
 			)}
 

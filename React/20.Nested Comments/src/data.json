@@ -1,13 +1,67 @@
 [
 	{
 		"id": 1,
-		"message": "Hello how are you",
+		"message": "This is a great discussion!",
+		"userId": 1,
 		"replies": [
 			{
 				"id": 2,
-				"message": "Im good",
+				"message": "I completely agree with you",
+				"userId": 2,
+				"replies": [
+					{
+						"id": 3,
+						"message": "Thanks for your input!",
+						"userId": 1,
+						"replies": []
+					}
+				]
+			},
+			{
+				"id": 4,
+				"message": "What do you think about this approach?",
+				"userId": 3,
 				"replies": []
 			}
 		]
+	},
+	{
+		"id": 5,
+		"message": "Has anyone tried the new feature yet?",
+		"userId": 4,
+		"replies": [
+			{
+				"id": 6,
+				"message": "Yes, I tested it yesterday and it works great",
+				"userId": 5,
+				"replies": [
+					{
+						"id": 7,
+						"message": "Can you share your experience?",
+						"userId": 4,
+						"replies": []
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": 8,
+		"message": "Looking forward to the next update!",
+		"userId": 6,
+		"replies": [
+			{
+				"id": 9,
+				"message": "Same here, it should be amazing",
+				"userId": 7,
+				"replies": []
+			}
+		]
+	},
+	{
+		"id": 10,
+		"message": "Does anyone have recommendations?",
+		"userId": 8,
+		"replies": []
 	}
 ]

@@ -1,7 +1,13 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import "./App.css";
 import data from "./data.json";
-import type { IComment, OpenRContext } from "./types";
+import userData from "./users.json";
+import {
+	type UserRContext,
+	type IComment,
+	type IUser,
+	type OpenRContext
+} from "./types";
 import Comment from "./components/Comment";
 
 // --- Context Setup ---
@@ -10,12 +16,21 @@ import Comment from "./components/Comment";
 // Only one reply box should be open at a time — so we store a single `openReplyId`
 // (the id of the currently open comment, or null if none is open).
 export const OpenReplyContext = createContext<OpenRContext | null>(null);
+export const UserContext = createContext<IUser[] | null>(null);
 // Custom hook so child components can consume the context cleanly
-export const useOpenReply = () => useContext(OpenReplyContext)!;
+export const useOpenReply = () => useContext(OpenReplyContext);
+export const useGetAllUsers = () => useContext(UserContext);
 
 function App() {
 	// `comments` holds the entire nested comment tree (array of root-level comments)
-	const [comments, setComments] = useState<IComment[]>(data);
+	const [comments, setComments] = useState<IComment[]>(() => {
+		const cachedComments = localStorage.getItem("comments");
+		return cachedComments ? JSON.parse(cachedComments) : data;
+	});
+
+	const [users, setUsers] = useState<IUser[]>(userData);
+
+	const [comment, setComment] = useState<string>("");
 	// Tracks which comment's reply input is currently open (by id). null = none open.
 	const [openReplyId, setOpenReplyId] = useState<number | null>(null);
 
@@ -24,8 +39,17 @@ function App() {
 	// and appends the new comment to its replies array — immutably.
 	// Same pattern as the File Explorer: rebuild the path to the changed node,
 	// return everything else unchanged.
-	const addComment = (commentMessge: string, parentId: number) => {
+	const addComment = (commentMessge: string, parentId: number | null) => {
 		setComments((prev) => {
+			if (parentId === null) {
+				const newComment: IComment = {
+					id: Date.now(),
+					message: commentMessge,
+					replies: []
+				};
+
+				return [...prev, newComment];
+			}
 			const setComment = (list: IComment[]): IComment[] => {
 				return list.map((item: IComment) => {
 					// Found the parent — append the new comment to its replies
@@ -87,24 +111,58 @@ function App() {
 		});
 	};
 
+	const handleComment = () => {
+		if (comment.trim() !== "") {
+			addComment(comment, null);
+			setComment("");
+		}
+	};
+
+	const handleClick = () => {
+		setOpenReplyId(null);
+	};
+
+	const handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter") {
+			handleComment();
+		}
+	};
+
+	useEffect(() => {
+		localStorage.setItem("comments", JSON.stringify(comments));
+	}, [comments]);
+
 	return (
 		// --- Render ---
 		// OpenReplyContext wraps the entire tree so any Comment at any depth
 		// can read/update which reply box is open — without prop drilling.
-		<OpenReplyContext.Provider value={{ openReplyId, setOpenReplyId }}>
-			<div className="comment-list">
-				{comments.map((comment) => {
-					return (
-						<Comment
-							comment={comment}
-							addComment={addComment}
-							deleteComment={deleteComment}
-							key={comment.id}
-						/>
-					);
-				})}
-			</div>
-		</OpenReplyContext.Provider>
+		<UserContext.Provider value={users}>
+			<OpenReplyContext.Provider value={{ openReplyId, setOpenReplyId }}>
+				<div className="comment-input-bar">
+					<input
+						type="text"
+						value={comment}
+						onClick={handleClick}
+						onKeyDown={handleKeydown}
+						onChange={(e) => setComment(e.target.value)}
+						placeholder="Add a new comment..."
+					/>
+					<button onClick={handleComment}>Comment</button>
+				</div>
+				<div className="comment-list">
+					{comments.map((comment) => {
+						return (
+							<Comment
+								comment={comment}
+								addComment={addComment}
+								deleteComment={deleteComment}
+								key={comment.id}
+							/>
+						);
+					})}
+				</div>
+			</OpenReplyContext.Provider>
+		</UserContext.Provider>
 	);
 }
 
