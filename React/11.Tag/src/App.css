@@ -1,0 +1,48 @@
+.tagContainer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 8px 10px;
+	max-width: 500px;
+	margin: 40px auto;
+}
+
+.tagContainer:focus-within {
+	border-color: #555;
+}
+
+.tag {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	background-color: #e8f0fe;
+	color: #333;
+	padding: 4px 10px;
+	border-radius: 20px;
+	font-size: 14px;
+}
+
+.btn {
+	border: none;
+	background: none;
+	color: #666;
+	font-size: 14px;
+	line-height: 1;
+	padding: 0;
+	cursor: pointer;
+}
+
+.btn:hover {
+	color: #111;
+}
+
+.tagContainer input {
+	border: none;
+	outline: none;
+	flex: 1;
+	min-width: 120px;
+	font-size: 14px;
+}

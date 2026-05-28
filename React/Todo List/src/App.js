@@ -56,40 +56,41 @@ export default function App() {
 		<div className="App">
 			<h1>TODO List</h1>
 
-			{/* Form for adding new tasks */}
-			<form onSubmit={submitInput}>
+			<form onSubmit={submitInput} aria-label="Add a new task">
+				<label htmlFor="task-input" className="sr-only">New task</label>
 				<input
+					id="task-input"
 					type="text"
 					value={currentItem}
 					onChange={(e) => setCurrentItem(e.target.value)}
 					placeholder="Add task..."
+					aria-required="true"
 				/>
-
-				{/* Submit button for the form */}
 				<button className="btn add" type="submit">
 					ADD
 				</button>
 			</form>
 
-			{/* List of todo items */}
-			<ul className="list">
+			<ul className="list" aria-label="Todo list" aria-live="polite">
 				{items.map((item, i) => (
 					<li
 						key={i}
 						className={`list-item ${item.completed ? "completed" : ""}`}
 					>
-						{/* Checkbox to mark task as completed */}
 						<input
 							type="checkbox"
+							id={`task-${i}`}
 							checked={item.completed}
 							onChange={(e) => completeTask(e, i)}
+							aria-label={`Mark "${item.text}" as ${item.completed ? "incomplete" : "complete"}`}
 						/>
+						<label htmlFor={`task-${i}`} className="task-name">{item.text}</label>
 
-						{/* Task text */}
-						<span className="task-name">{item.text}</span>
-
-						{/* Button to delete the task */}
-						<button className="btn delete" onClick={() => removeTask(i)}>
+						<button
+							className="btn delete"
+							onClick={() => removeTask(i)}
+							aria-label={`Delete task: ${item.text}`}
+						>
 							DELETE
 						</button>
 					</li>

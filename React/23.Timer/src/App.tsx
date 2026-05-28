@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 function App() {
+	// `time` counts seconds (1 unit = 1s). The interval fires every 1000ms.
+	// Unit conversions: 60 seconds = 1 minute
+
+	// Centiseconds version (1 unit = 10ms, interval = 10ms):
 	// `time` does not store milliseconds directly — it counts centiseconds (1 unit = 10ms).
 	// We use centiseconds because updating every 1ms causes 1000 re-renders/sec (too expensive).
 	// Updating every 10ms (100 re-renders/sec) gives smooth display without hammering the browser.
@@ -27,7 +31,7 @@ function App() {
 		if (running) {
 			intervelRef.current = setInterval(() => {
 				setTime((prev) => prev + 1);
-			}, 10);
+			}, 1000); // centiseconds version: }, 10);
 		}
 
 		return () => {
@@ -35,37 +39,35 @@ function App() {
 		};
 	}, [running]);
 
-	// Converts the raw centisecond count into a human-readable MM:SS:cs string.
-	// The trick is to use division to extract each unit, and modulo (%) to strip
-	// out the larger unit so you're only left with the remainder.
+	// Converts the raw second count into a human-readable MM:SS string.
+	// Math breakdown (example: time = 73 seconds):
 	//
-	// Math breakdown (example: time = 7350 centiseconds):
+	//   minutes → floor(73 / 60) = 1
+	//   seconds → 73 % 60       = 13
 	//
-	//   minutes      → floor(7350 / 6000)      = floor(1.225) = 1
-	//                  (one full minute has passed)
-	//
-	//   seconds      → 7350 % 6000             = 1350  (centiseconds left after removing full minutes)
-	//                  floor(1350 / 100)        = 13    (convert leftover centiseconds → seconds)
-	//
-	//   centiseconds → 7350 % 100              = 50    (leftover after removing full seconds)
-	//
-	//   final display: "01:13:50"
+	//   final display: "01:13"
 	//
 	// padStart(2, "0") ensures single digits are displayed as "05" not "5"
+
+	// Centiseconds version (example: time = 7350 centiseconds → "01:13:50"):
+	//   minutes      → floor(7350 / 6000) = 1
+	//   seconds      → floor((7350 % 6000) / 100) = 13
+	//   centiseconds → 7350 % 100 = 50
 	const currentTime = (): string => {
-		const minutes = Math.floor(time / 6000)
+		const minutes = Math.floor(time / 60)
 			.toString()
 			.padStart(2, "0");
 
-		const seconds = Math.floor((time % 6000) / 100)
+		const seconds = Math.floor(time % 60)
 			.toString()
 			.padStart(2, "0");
 
-		const miliseconds = Math.floor(time % 100)
-			.toString()
-			.padStart(2, "0");
+		// const centiseconds = Math.floor(time % 100)
+		// 	.toString()
+		// 	.padStart(2, "0");
 
-		return `${minutes}:${seconds}:${miliseconds}`;
+		return `${minutes}:${seconds}`;
+		// centiseconds return: return `${minutes}:${seconds}:${centiseconds}`;
 	};
 
 	// The guard `isStart !== running` prevents redundant state updates.

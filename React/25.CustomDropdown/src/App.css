@@ -1,0 +1,52 @@
+.container {
+	width: 300px;
+	margin: 40px auto;
+	font-family: sans-serif;
+}
+
+.head {
+	display: flex;
+	gap: 8px;
+}
+
+.head input {
+	flex: 1;
+	padding: 6px 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	outline: none;
+}
+
+.head button {
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background: #fff;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.head button:hover {
+	background: #f0f0f0;
+}
+
+.dropdown-container {
+	list-style: none;
+	margin: 4px 0 0;
+	padding: 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	max-height: 240px;
+	overflow-y: auto;
+}
+
+.list-item {
+	padding: 8px 12px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.list-item:hover {
+	background: #f0f0f0;
+}
