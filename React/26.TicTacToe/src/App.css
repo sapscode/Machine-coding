@@ -1,0 +1,28 @@
+.headings {
+	margin-bottom: 2rem;
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+}
+.turn {
+	font-family: "Courier New", Courier, monospace;
+	font-weight: 1000;
+	font-size: x-large;
+}
+
+.board {
+	width: fit-content;
+	margin: 0 auto;
+}
+
+.row {
+	display: flex;
+	gap: 2rem;
+	margin-bottom: 2rem;
+}
+
+.square {
+	height: 10rem;
+	width: 10rem;
+	font-size: 3rem;
+}
